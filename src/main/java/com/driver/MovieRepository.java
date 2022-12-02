@@ -49,7 +49,7 @@ public class MovieRepository {
 
     public Movie getm(String gmov)
     {
-         return movmap.get(gmov);
+         return this.movmap.get(gmov);
 
     }
 
@@ -57,7 +57,7 @@ public class MovieRepository {
     public Director getd(String gdir)
     {
 
-         return direcmap.get(gdir);
+         return this.direcmap.get(gdir);
     }
 
 
