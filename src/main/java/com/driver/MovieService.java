@@ -3,6 +3,8 @@ package com.driver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MovieService {
 
@@ -20,34 +22,38 @@ public class MovieService {
         repository.addir(dir);
     }
 
-    public void delDirector(String dir) {
+    public void addmovieDirector(String mov,String dir) {
 
-        repository.deld(dir);
+        repository.savmovdir(mov,dir);
+    }
+    public Movie finmov(String mov) {
+
+        return repository.findmov(mov);
     }
 
-    public void delMovie(String mov) {
+    public Director finddir(String dir) {
 
-        repository.delm(mov);
+        return repository.finddir(dir);
     }
+    public List<String> fmbyd(String dir) {
 
-    public void getMovie(String gmov) {
-
-        repository.getm(gmov);
-    }
-
-        public void getDirect(String gdir)
-        {
-
-            repository.getd(gdir);
-        }
-
-
+        return repository.findmovbydir(dir);
     }
 
 
+    public List<String> fallm() {
+
+        return repository.findallmov();
+    }
+
+    public void deld(String di) {
+
+        repository.deldir(di);
+    }
+    public void delalld() {
+
+         repository.delalldir();
+    }
 
 
-
-
-
-
+}

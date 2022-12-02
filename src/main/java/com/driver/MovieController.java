@@ -33,47 +33,75 @@ public class MovieController {
 
     }
 
+
+    @PutMapping("/add_mov_dir")
+    public ResponseEntity<String> addpair(@RequestParam("mov") String mov,@RequestParam("direct") String direct)
+    {
+
+        service.addmovieDirector(mov,direct);
+        return new ResponseEntity<>("new pair added",HttpStatus.CREATED);
+
+    }
+
+     @GetMapping("get_movie_name")
+    public ResponseEntity <Movie> findmovie(@RequestParam("movie") String movie)
+     {
+
+        Movie mo=service.finmov(movie);
+         return new ResponseEntity<>(mo,HttpStatus.CREATED);
+
+     }
+
+
+    @GetMapping("/get_dir_name")
+    public ResponseEntity <Director> find1(@RequestParam("name") String name)
+    {
+
+        Director di=service.finddir(name);
+        return new ResponseEntity<>(di,HttpStatus.CREATED);
+
+    }
+
+    @GetMapping("/get_mov_dir_name")
+    public ResponseEntity <List<String>> fmovbydi(@RequestParam String fdirect)
+    {
+
+        List<String> movies=service.fmbyd(fdirect);
+        return new ResponseEntity<>(movies,HttpStatus.CREATED);
+
+    }
+
+    @GetMapping("/get_mov_all")
+    public ResponseEntity <List<String>> fmovbydi()
+    {
+
+        List<String> movies=service.fallm();
+        return new ResponseEntity<>(movies,HttpStatus.CREATED);
+
+    }
+
+
+
+
     @DeleteMapping("/del_director")
     public ResponseEntity<String> delDir(@RequestParam String dir)
     {
 
-        service.delDirector(dir);
+        service.deld(dir);
         return new ResponseEntity<>("director deleted",HttpStatus.CREATED);
 
 
     }
-    @DeleteMapping("/del_movie")
-    public ResponseEntity<String> delMov(@RequestParam String mov)
+
+    @DeleteMapping("/del_all_director")
+    public ResponseEntity<String> delallDir()
     {
 
-        service.delMovie(mov);
-        return new ResponseEntity<>("movie deleted",HttpStatus.CREATED);
+        service.delalld();
+        return new ResponseEntity<>(" all director deleted",HttpStatus.CREATED);
 
 
     }
-
-    @GetMapping("/get_movie")
-    public ResponseEntity<String> getMov(@PathVariable String mname)
-    {
-
-        service.getMovie(mname);
-        return new ResponseEntity<>("new movie added",HttpStatus.CREATED);
-
-
-    }
-    @GetMapping("/get_direct")
-    public ResponseEntity<String> getDir(@PathVariable String dname)
-    {
-
-        service.getDirect(dname);
-        return new ResponseEntity<>("new movie added",HttpStatus.CREATED);
-
-
-    }
-
-
-
-
 
 
 }
