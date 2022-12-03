@@ -14,8 +14,8 @@ public class MovieController {
     MovieService  service;
 
 
-    @PostMapping("/add_movie")
-    public ResponseEntity<String> addMov(@RequestBody Movie movie)
+    @PostMapping("/add-movie")
+    public ResponseEntity<String>  addMovie(@RequestBody Movie movie)
     {
 
         service.addMovie(movie);
@@ -23,8 +23,8 @@ public class MovieController {
 
 
     }
-    @PostMapping("/add_director")
-    public ResponseEntity<String> addDir(@RequestBody Director direct)
+    @PostMapping("/add-director")
+    public ResponseEntity<String> addDirector(@RequestBody Director direct)
     {
 
         service.addDirector(direct);
@@ -35,7 +35,7 @@ public class MovieController {
 
 
     @PutMapping("/add_mov_dir")
-    public ResponseEntity<String> addpair(@RequestParam("mov") String mov,@RequestParam("direct") String direct)
+    public ResponseEntity<String> addMovieDirectorPair(@RequestParam("mov") String mov,@RequestParam("direct") String direct)
     {
 
         service.addmovieDirector(mov,direct);
@@ -43,8 +43,8 @@ public class MovieController {
 
     }
 
-     @GetMapping("get_movie_name")
-    public ResponseEntity <Movie> findmovie(@RequestParam("movie") String movie)
+     @GetMapping("/get-movie-by-name")
+    public ResponseEntity <Movie> getMovieByName(@RequestParam("movie") String movie)
      {
 
         Movie mo=service.finmov(movie);
@@ -53,8 +53,8 @@ public class MovieController {
      }
 
 
-    @GetMapping("/get_dir_name")
-    public ResponseEntity <Director> find1(@RequestParam("name") String name)
+    @GetMapping("/get-director-by-name")
+    public ResponseEntity <Director>  getDirectorByName(@RequestParam("name") String name)
     {
 
         Director di=service.finddir(name);
@@ -62,8 +62,8 @@ public class MovieController {
 
     }
 
-    @GetMapping("/get_mov_dir_name")
-    public ResponseEntity <List<String>> fmovbydi(@RequestParam String fdirect)
+    @GetMapping("/get-movies-by-director-name")
+    public ResponseEntity <List<String>> getMoviesByDirectorName(@RequestParam String fdirect)
     {
 
         List<String> movies=service.fmbyd(fdirect);
@@ -71,8 +71,8 @@ public class MovieController {
 
     }
 
-    @GetMapping("/get_mov_all")
-    public ResponseEntity <List<String>> fmovbydi()
+    @GetMapping("/get-all-movies")
+    public ResponseEntity <List<String>>  findAllMovies()
     {
 
         List<String> movies=service.fallm();
@@ -83,8 +83,8 @@ public class MovieController {
 
 
 
-    @DeleteMapping("/del_director")
-    public ResponseEntity<String> delDir(@RequestParam String dir)
+    @DeleteMapping("/delete-director-by-name")
+    public ResponseEntity<String> deleteDirectorByName(@RequestParam String dir)
     {
 
         service.deld(dir);
@@ -93,8 +93,8 @@ public class MovieController {
 
     }
 
-    @DeleteMapping("/del_all_director")
-    public ResponseEntity<String> delallDir()
+    @DeleteMapping("/delete-all-directors")
+    public ResponseEntity<String> deleteAllDirectors()
     {
 
         service.delalld();
