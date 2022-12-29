@@ -12,40 +12,51 @@ public class MovieRepository {
 
 
     private Map<String, Movie> movmap;
-    private Map<String, Director> direcmap;
-    private Map<String, List<String>> movdirmap;
+    private Map<String, Director> dirmap;
+    private Map<Director, List<Movie>> movdirmap;
 
 
     public MovieRepository() {
 
 
         this.movmap = new HashMap<String, Movie>();
-        this.direcmap = new HashMap<String, Director>();
-        this.movdirmap = new HashMap<String, List<String>>();
+        this.dirmap = new HashMap<String, Director>();
+        this.movdirmap = new HashMap<Director, List<Movie>>();
     }
 
-    public void addmov(Movie amov) {
+    public void addmov(Movie mov) {
 
-        this.movmap.put(amov.getName(), amov);
+        this.movmap.put(mov.getName(), mov);
     }
 
     public void addir(Director adir) {
 
-        this.direcmap.put(adir.getName(), adir);
+        this.dirmap.put(adir.getDname(), adir);
     }
 
     public void savmovdir(String mov, String dir) {
-        if (movmap.containsKey(mov) && movmap.containsKey(dir)) {
-            List<String> movies = new ArrayList<String>();
 
-            if (movdirmap.containsKey(dir))
+        List<Movie> movie = new ArrayList<Movie>();
 
-                movies = movdirmap.get(dir);
-            movies.add(mov);
-            movdirmap.put(dir, movies);
+        Director di = new Director();
+        di = dirmap.get(dir);
+
+        if (dirmap.containsKey(dir)) {
+
+            for (Movie mi : movmap.values()) {
+
+                if (movmap.containsKey(mov) && dir.equals(di.dname)) {
+                    Movie mo = new Movie();
+                    mo = movmap.get(mov);
+                    movie.add(mo);
+                }
+
+            }
+            movdirmap.put(di, movie);
 
         }
     }
+
 
     public Movie findmov(String fmov) {
         return movmap.get(fmov);
@@ -54,15 +65,28 @@ public class MovieRepository {
 
     public Director finddir(String fdir) {
 
-        return direcmap.get(fdir);
+        return dirmap.get(fdir);
     }
 
-    public List<String> findmovbydir(String fmdir) {
-        List<String> lis = new ArrayList<>();
-        if (movdirmap.containsKey(fmdir))
-            lis = movdirmap.get(fmdir);
+    public List<Movie> findmovbydir(String fmdir) {
+        List<Movie> lis = new ArrayList<>();
+
+        for (Director di : movdirmap.keySet()) {
+
+            if (di.equals(fmdir)) {
+
+                lis=movdirmap.get(fmdir);
+
+            }
+        }
+
         return lis;
     }
+
+
+
+
+
 
     public List<String> findallmov() {
 
@@ -71,49 +95,26 @@ public class MovieRepository {
 
 
     public void deldir(String ddir) {
-        List<String> lmov = new ArrayList<String>();
+        List<Movie> lmov = new ArrayList<Movie>();
 
         if (movdirmap.containsKey(ddir)){
             lmov = movdirmap.get(ddir);
 
-        for (String str : lmov) {
-            if (movmap.containsKey(lmov))
-                movmap.remove(str);
+        for (Movie m :  lmov) {
+            if (movmap.containsKey(m))
+                movmap.remove(m);
 
         }
     }
-     direcmap.remove(ddir);
+     dirmap.remove(ddir);
 }
 
 
     public void delalldir() {
-        HashSet<String> mset=new HashSet<String>();
-
-
-
-        for (String direct :movdirmap.keySet()) {
-            for (String mov : movdirmap.get(direct)) {
-                mset.add(mov);
-            }
-        }
-
-        for (String mov :mset)
-        {
-            if(movmap.containsKey(mov))
-                movmap.remove(mov);
-        }
+        dirmap.clear();
+        movmap.clear();
     }
 
 
     }
-
-
-
-
-
-
-
-
-
-
 

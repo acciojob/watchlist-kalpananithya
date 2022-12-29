@@ -22,10 +22,11 @@ public class MovieService {
         repository.addir(dir);
     }
 
-    public void addmovieDirector(String mov,String dir) {
+   public void addmovieDirector(String mov,String dir) {
 
         repository.savmovdir(mov,dir);
     }
+
     public Movie finmov(String mov) {
 
         return repository.findmov(mov);
@@ -35,7 +36,7 @@ public class MovieService {
 
         return repository.finddir(dir);
     }
-    public List<String> fmbyd(String dir) {
+    public List<Movie> fmbyd(String dir) {
 
         return repository.findmovbydir(dir);
     }

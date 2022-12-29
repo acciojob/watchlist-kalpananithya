@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("movies")
+@RequestMapping("/movies")
 public class MovieController {
 
     @Autowired
@@ -63,10 +63,10 @@ public class MovieController {
     }
 
     @GetMapping("/get-movies-by-director-name")
-    public ResponseEntity <List<String>> getMoviesByDirectorName(@RequestParam String fdirect)
+    public ResponseEntity <List<Movie>> getMoviesByDirectorName(@RequestParam String fdirect)
     {
 
-        List<String> movies=service.fmbyd(fdirect);
+        List<Movie> movies=service.fmbyd(fdirect);
         return new ResponseEntity<>(movies,HttpStatus.CREATED);
 
     }
